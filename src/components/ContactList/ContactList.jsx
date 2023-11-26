@@ -1,15 +1,25 @@
 
 import css from './ContactList.module.css';
-
+import React, { useEffect } from 'react';
 import ContactItem from 'components/ContactItem/ContactItem';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts} from 'redux/contacts/contacts.reducer';
+import { selectContacts, selectFilter, selectVisibleContacts } from 'redux/contacts/contacts.selector';
 
 const ContactList = () => {
-  let contacts = useSelector(state => state.contactsStore.contacts);
-  const filterContacts = useSelector(state => state.contactsStore.filterContacts);
-  const filter = useSelector(state => state.contactsStore.filter);
+  const dispatch = useDispatch();
+  let contacts = useSelector(selectContacts);
+  const filterContacts = useSelector(selectVisibleContacts);
+  const filter = useSelector(selectFilter);
   if (filter.length > 0) {
        contacts = filterContacts;   }
+  
+ 
+
+  useEffect(() => {
+    dispatch(fetchContacts())
+  }, [dispatch]);
+
        return (
         <ul className={css.list}>  
          {contacts.map(contact => (

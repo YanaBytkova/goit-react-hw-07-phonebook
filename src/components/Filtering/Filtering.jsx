@@ -2,9 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {filterContact, inputFilter} from 'redux/contacts/contacts.reducer';
 import css from './Filtering.module.css';
-
+import { selectFilter } from 'redux/contacts/contacts.selector';
 const Filtering = () => {
-    const filter = useSelector(state => state.contactsStore.filter);
+    const filter = useSelector(selectFilter);
     const dispatch = useDispatch();
 
   const handleInputFilter = event => {
