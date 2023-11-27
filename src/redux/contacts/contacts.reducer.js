@@ -22,9 +22,8 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, thunkApi) => {
     try {
-      console.log(contactId);
       const { data } = await axios.delete(
-        `https://6561ca94dcd355c08324321a.mockapi.io/api/contacts/contacts/:${contactId}`
+        `https://6561ca94dcd355c08324321a.mockapi.io/api/contacts/contacts/${contactId}`
       );
       return data;
     } catch (err) {
@@ -37,10 +36,8 @@ export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (newContact, thunkApi) => {
     try {
-      console.log("newContatc", newContact);
-      // state.contacts.push(newContact);
       const { data } = await axios.post(
-        `https://6561ca94dcd355c08324321a.mockapi.io/api/contacts/contacts`
+        `https://6561ca94dcd355c08324321a.mockapi.io/api/contacts/contacts`, newContact
       );
  
       return data;
@@ -51,13 +48,11 @@ export const addContact = createAsyncThunk(
 );
 
 
-
 const initialState = {
   contacts: [],
   isLoading: false,
   error: null,
-  filterContacts: [],
-  filter: ""
+  filterTerm: ""
   
 };
 
@@ -67,11 +62,8 @@ const contactsSlice = createSlice({
   initialState,
   reducers: {
 
-    filterContact(state, { payload }) {
-      state.filterContacts = state.contacts.filter(contact=> contact.name.toLowerCase().includes(payload.toLowerCase()));
-  },
     inputFilter(state, { payload }) {
-     state.filter = payload;
+     state.filterTerm = payload;
    }, 
 
 },
@@ -80,20 +72,16 @@ extraReducers: builder =>
       .addCase(fetchContacts.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.contacts = payload;
-        console.log(state.contacts);
         
       })
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.contacts = payload;
-        state.contacts = state.contacts.filter(contact=> contact.id !== payload);
-        console.log("after delete", state.contacts, payload);
-     
+        state.contacts = state.contacts.filter(contact=> contact.id !== payload.id);
+        
       })
       .addCase(addContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.contacts = state.contacts.push(payload);
-        console.log("payload addContact", payload);
+        state.contacts = [...state.contacts, payload];
         
       })
 
@@ -124,5 +112,5 @@ extraReducers: builder =>
 
 });
 
-export const { filterContact, inputFilter} = contactsSlice.actions;
+export const {inputFilter} = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

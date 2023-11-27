@@ -34,11 +34,9 @@ const ContactForm = () => {
     }
 
     const finalNames = {
-      // createdAt: Date.now(),
       ...contactData,
       id: nanoid(),
     };
-    console.log(finalNames);
     dispatch(addContact(finalNames));
 
   };

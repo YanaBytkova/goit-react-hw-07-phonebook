@@ -3,7 +3,7 @@
     border-radius: 10px;
     margin: 0 auto;
     padding: 12px;
-    max-width: 1000px;
+    width: 500px;
     min-height: 100hw;
     position: absolute;
     top: 50%;
@@ -11,4 +11,8 @@
     transform: translate(-50%, -50%);
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,154,45,1) 75%);
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
 }

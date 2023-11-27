@@ -1,16 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {filterContact, inputFilter} from 'redux/contacts/contacts.reducer';
+import {inputFilter} from 'redux/contacts/contacts.reducer';
 import css from './Filtering.module.css';
-import { selectFilter } from 'redux/contacts/contacts.selector';
+import { selectFilterTerm } from 'redux/contacts/contacts.selector';
 const Filtering = () => {
-    const filter = useSelector(selectFilter);
+    const filter = useSelector(selectFilterTerm);
     const dispatch = useDispatch();
 
   const handleInputFilter = event => {
     const value = event.target.value;
     dispatch(inputFilter(value));
-    dispatch(filterContact(value));
+  
   };
     return (
         

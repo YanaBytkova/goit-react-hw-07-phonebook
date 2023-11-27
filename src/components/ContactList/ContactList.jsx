@@ -4,13 +4,13 @@ import React, { useEffect } from 'react';
 import ContactItem from 'components/ContactItem/ContactItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts} from 'redux/contacts/contacts.reducer';
-import { selectContacts, selectFilter, selectVisibleContacts } from 'redux/contacts/contacts.selector';
+import { selectContacts, selectFilterTerm, selectVisibleContacts} from 'redux/contacts/contacts.selector';
 
 const ContactList = () => {
   const dispatch = useDispatch();
   let contacts = useSelector(selectContacts);
   const filterContacts = useSelector(selectVisibleContacts);
-  const filter = useSelector(selectFilter);
+  const filter = useSelector(selectFilterTerm);
   if (filter.length > 0) {
        contacts = filterContacts;   }
   
